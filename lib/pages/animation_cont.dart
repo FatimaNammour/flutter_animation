@@ -1,95 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/core/widgets/shared_app_bar.dart';
+import 'package:flutter_animation/pages/animation_cont1.dart';
+import 'package:flutter_animation/pages/animation_cont2.dart';
 
 class AnimCont extends StatefulWidget {
+  const AnimCont({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return AnimContState();
   }
 }
 
-class AnimContState extends State<AnimCont>
-    with SingleTickerProviderStateMixin {
-  late AnimationController animCont;
-  late Animation<AlignmentGeometry> pGeoAlign;
-  late Animation<AlignmentGeometry> bGeoAlign;
-
-  @override
-  void initState() {
-    animCont = AnimationController(
-        vsync: this,
-        duration: const Duration(seconds: 1),
-        reverseDuration: const Duration(seconds: 4));
-    pGeoAlign = Tween<AlignmentGeometry>(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-    ).animate(animCont);
-    bGeoAlign = Tween<AlignmentGeometry>(
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
-    ).animate(animCont);
-    super.initState();
-  }
-
+class AnimContState extends State<AnimCont> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const SharedAppBar(title: "Animation Controller"),
-      body: Column(children: [
-        Expanded(
-          child: Stack(
-            children: [
-              AlignTransition(
-                alignment: pGeoAlign,
-                child: CircleAvatar(
-                  backgroundColor: Colors.pink,
-                ),
-              ),
-              AlignTransition(
-                alignment: bGeoAlign,
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                ),
-              ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: const TabBar(
+            tabs: [
+              Tab(child: Text("one controller")),
+              Tab(child: Text("tow controller")),
             ],
           ),
         ),
-        Wrap(
-          alignment: WrapAlignment.spaceBetween,
+        body: const TabBarView(
           children: [
-            ElevatedButton(
-                onPressed: () {
-                  animCont.forward();
-                },
-                child: const Text("Forward")),
-            ElevatedButton(
-                onPressed: () {
-                  animCont.reverse();
-                },
-                child: const Text("Reverse")),
-            ElevatedButton(
-                onPressed: () {
-                  animCont.stop();
-                },
-                child: const Text("Stop")),
-            ElevatedButton(
-                onPressed: () {
-                  animCont.reset();
-                },
-                child: const Text("Reset")),
-            ElevatedButton(
-                onPressed: () {
-                  animCont.repeat();
-                },
-                child: const Text("Repeat")),
-            ElevatedButton(
-                onPressed: () {
-                  animCont.repeat(reverse: true);
-                },
-                child: const Text("Repeat(rv=true)")),
+            AnimCont1(),
+            AnimCont2(),
           ],
-        )
-      ]),
+        ),
+      ),
     );
   }
 }

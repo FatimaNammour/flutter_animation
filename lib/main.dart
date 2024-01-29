@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/core/theme/theme.dart';
 import 'package:flutter_animation/pages/animation_cont.dart';
+import 'package:flutter_animation/pages/animation_cont2.dart';
 import 'package:flutter_animation/pages/home_screen.dart';
 import 'package:flutter_animation/pages/tween_paage.dart';
 
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         return AnimCont();
       case 3:
-        return const Text("2");
+        return const AnimCont2();
       default:
         return const HomeScreen();
     }
