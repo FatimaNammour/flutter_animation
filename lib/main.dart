@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/core/theme/theme.dart';
 import 'package:flutter_animation/pages/animation_cont.dart';
-import 'package:flutter_animation/pages/animation_cont2.dart';
+import 'package:flutter_animation/pages/foo_transtion_listen_to_status.dart';
 import 'package:flutter_animation/pages/home_screen.dart';
 import 'package:flutter_animation/pages/tween_paage.dart';
 
@@ -72,11 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget currentPAge(int tabIndex) {
     switch (tabIndex) {
-      // case 0: return Text("0");
       case 1:
         return const TweenPage();
       case 2:
-        return AnimCont();
+        return const AnimCont();
       case 3:
         return const AnimCont2();
       default:

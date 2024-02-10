@@ -1,15 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
-class AnimCont2 extends StatefulWidget {
-  const AnimCont2({super.key});
+class AnimCont3 extends StatefulWidget {
+  const AnimCont3({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return AnimCont2State();
+    return AnimCont3State();
   }
 }
 
-class AnimCont2State extends State<AnimCont2> with TickerProviderStateMixin {
+class AnimCont3State extends State<AnimCont3> with TickerProviderStateMixin {
   late AnimationController pinkAnimCont;
   late AnimationController blackAnimCont;
   late Animation<AlignmentGeometry> pGeoAlign;
@@ -19,13 +21,13 @@ class AnimCont2State extends State<AnimCont2> with TickerProviderStateMixin {
   void initState() {
     pinkAnimCont = AnimationController(
         vsync: this,
-        duration: const Duration(seconds: 2),
-        reverseDuration: const Duration(seconds: 2));
+        duration: const Duration(seconds: 1),
+        reverseDuration: const Duration(seconds: 1));
 
     blackAnimCont = AnimationController(
         vsync: this,
-        duration: const Duration(seconds: 2),
-        reverseDuration: const Duration(seconds: 2));
+        duration: const Duration(seconds: 1),
+        reverseDuration: const Duration(seconds: 1));
 
     pGeoAlign = Tween<AlignmentGeometry>(
       begin: Alignment.topCenter,
@@ -39,15 +41,17 @@ class AnimCont2State extends State<AnimCont2> with TickerProviderStateMixin {
         parent: blackAnimCont,
         curve: Curves.ease,
         reverseCurve: Curves.easeInOut));
+
     super.initState();
 
-    pinkAnimCont.addStatusListener((status) {
-      if (status == AnimationStatus.completed &&
-          blackAnimCont.status == AnimationStatus.dismissed) {
+    pinkAnimCont.addListener(() {
+      log("value of  panimcont ========================  ${pinkAnimCont.value}");
+      log("value of banimcont ========================  ${blackAnimCont.value}");
+
+      if (pinkAnimCont.value >= 0.5 && blackAnimCont.value == 0) {
         blackAnimCont.forward();
       }
-      if (status == AnimationStatus.dismissed &&
-          blackAnimCont.status == AnimationStatus.completed) {
+      if (pinkAnimCont.value <= 0.5 && blackAnimCont.value == 1) {
         blackAnimCont.reverse();
       }
     });
@@ -97,17 +101,6 @@ class AnimCont2State extends State<AnimCont2> with TickerProviderStateMixin {
                 pinkAnimCont.reset();
               },
               child: const Text("Reset")),
-          ElevatedButton(
-              onPressed: () {
-                pinkAnimCont.repeat();
-                blackAnimCont.reset();
-              },
-              child: const Text("Repeat")),
-          ElevatedButton(
-              onPressed: () {
-                pinkAnimCont.repeat(reverse: true);
-              },
-              child: const Text("Repeat(rv=true)")),
         ],
       )
     ]);
