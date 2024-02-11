@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/core/theme/theme.dart';
 import 'package:flutter_animation/pages/animated_builder_tab.dart';
-import 'package:flutter_animation/pages/animation_cont.dart';
+import 'package:flutter_animation/pages/foo_transition_animation_cont.dart';
 import 'package:flutter_animation/pages/animated_foo_widgets.dart';
 import 'package:flutter_animation/pages/tween_paage.dart';
 

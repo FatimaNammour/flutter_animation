@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class AnimCont4 extends StatefulWidget {
@@ -15,6 +13,8 @@ class AnimCont4State extends State<AnimCont4>
     with SingleTickerProviderStateMixin {
   late AnimationController animCont;
   late Animation<AlignmentGeometry> pGeoAlign;
+  String statusString = "No Status Listener added yet";
+  String valueString = "No Value Listener added yet";
 
   @override
   void initState() {
@@ -31,11 +31,15 @@ class AnimCont4State extends State<AnimCont4>
   }
 
   void statusListener(AnimationStatus status) {
-    log("status issssssssssssssssssss   ${status.toString()}");
+    setState(() {
+      statusString = status.toString();
+    });
   }
 
   void listener() {
-    log("value issssssssssssssssssss   ${animCont.value.toString()}");
+    setState(() {
+      valueString = animCont.value.toString();
+    });
   }
 
   @override
@@ -48,17 +52,15 @@ class AnimCont4State extends State<AnimCont4>
   Widget build(BuildContext context) {
     return Column(children: [
       Expanded(
-        child: Stack(
-          children: [
-            AlignTransition(
-              alignment: pGeoAlign,
-              child: const CircleAvatar(
-                backgroundColor: Colors.pink,
-              ),
-            ),
-          ],
+        child: AlignTransition(
+          alignment: pGeoAlign,
+          child: const CircleAvatar(
+            backgroundColor: Colors.pink,
+          ),
         ),
       ),
+      Text(statusString),
+      Text(valueString),
       ElevatedButton(
           onPressed: () {
             if (animCont.status == AnimationStatus.completed) {
@@ -78,6 +80,9 @@ class AnimCont4State extends State<AnimCont4>
               child: const Text("Add Status Listener")),
           ElevatedButton(
               onPressed: () {
+                setState(() {
+                  statusString = "No Status Listener added yet";
+                });
                 animCont.removeStatusListener(statusListener);
               },
               child: const Text("Remove Status Listener")),
@@ -88,6 +93,10 @@ class AnimCont4State extends State<AnimCont4>
               child: const Text("Add value Listener")),
           ElevatedButton(
               onPressed: () {
+                setState(() {
+                  valueString = "No Value Listener added yet";
+                });
+
                 animCont.removeListener(listener);
               },
               child: const Text("Remove value Listener")),
