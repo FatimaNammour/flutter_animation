@@ -16,6 +16,7 @@ class HomeScreenState extends State<HomeScreen> {
   Color _conColor = Colors.purple;
   String imageUrl = imagesUrls[0];
   Alignment alignment = Alignment.bottomLeft;
+  double _turns = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +106,7 @@ class HomeScreenState extends State<HomeScreen> {
                   Container(
                     color: Theme.of(context).primaryColor,
                     height: 100,
-                    width: 200,
+                    width: 150,
                     child: AnimatedAlign(
                       alignment: alignment,
                       duration: const Duration(seconds: 2),
@@ -124,6 +125,31 @@ class HomeScreenState extends State<HomeScreen> {
                         });
                       },
                       child: const Text("Change align")),
+                ],
+              ),
+              Column(
+                children: [
+                  AnimatedRotation(
+                    turns: _turns,
+                    duration: const Duration(seconds: 2),
+                    child: const FlutterLogo(size: 100),
+                  ),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {});
+                          },
+                          child: const Text("Rotate Right")),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _turns = _turns - 0.5;
+                            });
+                          },
+                          child: const Text("Rotate left")),
+                    ],
+                  ),
                 ],
               ),
             ],
